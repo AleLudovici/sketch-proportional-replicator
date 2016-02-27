@@ -1,0 +1,7 @@
+{
+	"author": "Alessandro Ludovici",
+	"version": 0.1,
+	"description": "This plugin allows you to create a rectangle with dimension specified as a percentage of the container layer",
+	"authorEmail": "",
+	"name": "Sketch Rectangles With Percentage" 
+}
