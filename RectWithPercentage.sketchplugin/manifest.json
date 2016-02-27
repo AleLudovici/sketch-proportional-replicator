@@ -1,0 +1,24 @@
+{
+	"name": "Sketch Rectangle With Percentage",
+	"description": "This plugin allows you to create a rectangle with dimension specified as a percentage of the container layer",
+	"author": "Alessandro Ludovici",
+    "homepage": "",
+    "identifier": "com.aleludovici.sketch.rect-percentage",
+	"version": 0.1,
+    "compatibleVersion": 3,
+    "commands": [
+        {
+            "name": "Rectangle with Percentage",
+            "identifier": "rect-percentage",
+            "shortcut": "ctrl shift p",
+            "script": "script.cocoascript",
+            "handler": "onRun"
+        }
+    ],
+    "menu": {
+        "title": "Rectangle with Percentage",
+        "items": [
+            "rect-percentage"
+        ]
+    }
+}
