@@ -7,8 +7,8 @@ var onRun = function (context) {
         var userInput = showAlertWindow()
         if (userInput != null) {
             var layer = selection.firstObject()
-            var newLayer = layerWithRequestedPercentage(layer.frame(), userInput)
-            doc.currentPage().currentArtboard().addLayers([newLayer])
+            var shapeGroups = shapeGroupsWithRequestedPercentage(layer.frame(), userInput)
+            doc.currentPage().currentArtboard().addLayers(shapeGroups)
         } else {
             doc.showMessage('Ops..Something went wrong. Please retry')
         }
@@ -43,17 +43,25 @@ var onRun = function (context) {
         }
     }
 
-    function layerWithRequestedPercentage(baseFrame, userInput) {
+    function shapeGroupsWithRequestedPercentage(baseFrame, userInput) {
         var size = baseFrame.size()
         var origin = baseFrame.origin()
 
-        var rectShape = MSRectangleShape.new()
-        var baseRect = NSMakeRect(0, origin.y, size.width * userInput.width, size.height * userInput.height)
-        rectShape.frame = MSRect.rectWithRect(baseRect)
+        function createRectangle() {
+            var rectShape = MSRectangleShape.new()
+            var baseRect = NSMakeRect(0, origin.y, size.width * userInput.width, size.height * userInput.height)
+            rectShape.frame = MSRect.rectWithRect(baseRect)
+            var shapeGroup = MSShapeGroup.shapeWithPath(rectShape)
+            shapeGroup.style().fills().addNewStylePart()
+            return shapeGroup
+        }
 
-        var shapeGroup = MSShapeGroup.shapeWithPath(rectShape)
-        shapeGroup.style().fills().addNewStylePart()
-        return shapeGroup
+        var copies = []
+        for (var i = 1; i <= userInput.copies; i++) {
+             copies.push(createRectangle())
+        }
+
+        return copies
     }
 }
 
