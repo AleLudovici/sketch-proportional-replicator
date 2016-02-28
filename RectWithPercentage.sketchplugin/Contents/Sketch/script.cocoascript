@@ -20,13 +20,13 @@ var onRun = function (context) {
 
     function showAlertWindow() {
         var alertWindow = COSAlertWindow.new()
-        alertWindow.setMessageText('Check')
+        alertWindow.setMessageText('Create new rectangle shape')
 
-        alertWindow.addTextLabelWithValue('Enter width')
+        alertWindow.addTextLabelWithValue('Enter width multiplier')
         alertWindow.addTextFieldWithValue('1')
 
-        alertWindow.addTextLabelWithValue('Enter height')
-        alertWindow.addTextFieldWithValue('0.5')
+        alertWindow.addTextLabelWithValue('Enter height multiplier')
+        alertWindow.addTextFieldWithValue('1')
 
         alertWindow.addTextLabelWithValue('Enter number of copies')
         alertWindow.addTextFieldWithValue('1')
@@ -49,7 +49,7 @@ var onRun = function (context) {
 
         function createRectangle() {
             var rectShape = MSRectangleShape.new()
-            var baseRect = NSMakeRect(0, origin.y, size.width * userInput.width, size.height * userInput.height)
+            var baseRect = NSMakeRect(origin.x, origin.y, size.width * userInput.width, size.height * userInput.height)
             rectShape.frame = MSRect.rectWithRect(baseRect)
             var shapeGroup = MSShapeGroup.shapeWithPath(rectShape)
             shapeGroup.style().fills().addNewStylePart()
