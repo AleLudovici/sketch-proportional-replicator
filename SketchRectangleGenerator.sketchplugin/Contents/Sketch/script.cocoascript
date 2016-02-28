@@ -20,7 +20,7 @@ var onRun = function (context) {
 
     function showAlertWindow() {
         var alertWindow = COSAlertWindow.new()
-        alertWindow.setMessageText('Create new rectangle shape')
+        alertWindow.setMessageText('Create new rectangles from the selected layer')
 
         alertWindow.addTextLabelWithValue('Enter width multiplier')
         alertWindow.addTextFieldWithValue('1')

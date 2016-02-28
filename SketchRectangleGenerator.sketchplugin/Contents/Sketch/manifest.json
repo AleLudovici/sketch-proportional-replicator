@@ -1,0 +1,24 @@
+{
+	"name": "Sketch Rectangle Generator",
+	"description": "This plugin takes the selected layer and create new rectangles with sizes proportional to it.",
+	"author": "Alessandro Ludovici",
+    "homepage": "",
+    "identifier": "com.aleludovici.sketch.rect-multiplier",
+	"version": 1.0,
+    "compatibleVersion": 3,
+    "commands": [
+        {
+            "name": "Rectangle Generator",
+            "identifier": "rect-multiplier",
+            "shortcut": "ctrl shift p",
+            "script": "script.cocoascript",
+            "handler": "onRun"
+        }
+    ],
+    "menu": {
+        "title": "Rectangle Generator",
+        "items": [
+            "rect-multiplier"
+        ]
+    }
+}
