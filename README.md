@@ -4,6 +4,8 @@ This plugin takes the selected layer and create new rectangles with sizes propor
 
 You choose the proportion by specifying the multipliers for the width and height of the selected layer.
 
+![Sketch Rectangle Generator Demo](/SketchRectangleGenerator.sketchplugin/Contents/Resources/SketchRectangleGenerator.gif?raw=true)
+
 ## Installation
 
 1. Download and unzip Sketch Bound with Box.
