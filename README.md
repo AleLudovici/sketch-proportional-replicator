@@ -1,12 +1,12 @@
-# Sketch Rectangle Generator
+# Sketch Proportional Replicator
 
-This plugin takes the selected layer and create new rectangles with sizes proportional to it.
+This plugin takes the selected layer and create new copies of proportional size to the original.
 
 You choose the proportion by specifying the multipliers for the width and height of the selected layer.
 
-![Sketch Rectangle Generator Demo](/SketchRectangleGenerator.sketchplugin/Contents/Resources/SketchRectangleGenerator.gif?raw=true)
+![Sketch Proportional Replicator Demo](/SketchProportionalReplicator.sketchplugin/Contents/Resources/SketchProportionalReplicator.gif?raw=true)
 
 ## Installation
 
-1. Download and unzip Sketch Bound with Box.
-2. Double click `SketchRectangleGenerator.sketchplugin` for auto installation.
+1. Download and unzip Sketch Proportional Replicator.
+2. Double click `SketchProportionalReplicator.sketchplugin` for auto installation.
