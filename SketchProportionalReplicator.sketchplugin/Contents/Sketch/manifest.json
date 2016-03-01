@@ -4,7 +4,7 @@
 	"author": "Alessandro Ludovici",
     "homepage": "",
     "identifier": "com.aleludovici.sketch.prop-replicator",
-	"version": 1.0,
+	"version": 1.1,
     "compatibleVersion": 3,
     "commands": [
         {
