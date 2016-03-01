@@ -31,42 +31,84 @@ var onRun = function (context) {
         alertWindow.addTextLabelWithValue('Enter number of copies')
         alertWindow.addTextFieldWithValue('1')
 
+        alertWindow.addTextLabelWithValue('Place copies respect to selected layer')
+        var placeOptions = ['Below', 'Above', 'Left', 'Right']
+        alertWindow.addAccessoryView(createSelect(placeOptions, 0))
+
+        alertWindow.addTextLabelWithValue('Enter margin between copies')
+        alertWindow.addTextFieldWithValue('0')
+
         alertWindow.addButtonWithTitle('OK')
         alertWindow.addButtonWithTitle('Cancel')
 
         if (alertWindow.runModal() == -NSModalResponseStop) {
             return new UserInput(alertWindow.viewAtIndex(1).stringValue(),
                 alertWindow.viewAtIndex(3).stringValue(),
-                alertWindow.viewAtIndex(5).stringValue())
+                alertWindow.viewAtIndex(5).stringValue(),
+                alertWindow.viewAtIndex(7).stringValue(),
+                alertWindow.viewAtIndex(9).stringValue())
         } else {
             return null
         }
     }
 
-    function shapeGroupsWithRequestedPercentage(baseFrame, userInput) {
-        var size = baseFrame.size()
-        var origin = baseFrame.origin()
+    function createSelect(items, selectedItemIndex){
+      selectedItemIndex = selectedItemIndex || 0
 
-        function createRectangle() {
+      var comboBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0,0,200,25))
+      comboBox.addItemsWithObjectValues(items)
+      comboBox.selectItemAtIndex(selectedItemIndex)
+
+      return comboBox
+    }
+
+    function shapeGroupsWithRequestedPercentage(baseFrame, userInput) {
+        var baseSize = baseFrame.size()
+        var newSize = NSMakeSize(baseSize.width * userInput.width, baseSize.height * userInput.height)
+        var baseOrigin = baseFrame.origin()
+
+        function createRectangle(x,y) {
             var rectShape = MSRectangleShape.new()
-            var baseRect = NSMakeRect(origin.x, origin.y, size.width * userInput.width, size.height * userInput.height)
+            var baseRect = NSMakeRect(x, y, newSize.width, newSize.height)
             rectShape.frame = MSRect.rectWithRect(baseRect)
             var shapeGroup = MSShapeGroup.shapeWithPath(rectShape)
             shapeGroup.style().fills().addNewStylePart()
             return shapeGroup
         }
 
-        var copies = []
-        for (var i = 1; i <= userInput.copies; i++) {
-             copies.push(createRectangle())
+        function position(index, x, y) {
+            // Switch statement uses strict equality which must be avoided in CocoaScript. Use if/else if instead.
+            // (https://github.com/turbobabr/Sketch-Plugins-Cookbook#cocoascript-dont-use--operator)
+            if (userInput.position ==  "Below") {
+                y += ((index == 1) ? baseSize.height.floatValue() : newSize.height.floatValue()) + userInput.margin.floatValue()
+            } else if (userInput.position ==  "Above") {
+                y -= newSize.height.floatValue() + userInput.margin.floatValue()
+            } else if (userInput.position == "Left") {
+                x -= newSize.width.floatValue() + userInput.margin.floatValue()
+            } else if (userInput.position == "Right") {
+                x += ((index == 1) ? baseSize.width.floatValue() : newSize.width.floatValue()) + userInput.margin.floatValue()
+            }
+            return [x, y]              
         }
 
+        var copies = []
+        var xPos = baseOrigin.x
+        var yPos = baseOrigin.y
+        for (var i = 1; i <= userInput.copies; i++) {
+            var pos = position(i, xPos, yPos)
+            var rect = createRectangle(pos[0], pos[1])
+            copies.push(rect)
+            xPos = rect.frame().x()
+            yPos = rect.frame().y()
+        }
         return copies
     }
 }
 
-function UserInput(width, height, copies) {
+function UserInput(width, height, copies, position, margin) {
     this.width = width
     this.height = height
     this.copies = copies
+    this.position = position
+    this.margin = margin
 }
